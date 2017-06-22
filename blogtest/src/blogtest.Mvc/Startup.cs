@@ -7,6 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using blogtest.DAL;
+using Microsoft.EntityFrameworkCore;
+
+using System.IdentityModel.Tokens.Jwt;
+
+using blogtest.DAL.Context;
 
 namespace blogtest.Mvc
 {
@@ -27,6 +33,14 @@ namespace blogtest.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection1");
+            //services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
+            //services.AddDbContext<BlogDbContext>(options =>
+            //    options.UseSqlServer(connectionString));
             // Add framework services.
             services.AddMvc();
         }
@@ -46,6 +60,31 @@ namespace blogtest.Mvc
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationScheme = "Cookies"
+            });
+
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+            {
+                AuthenticationScheme = "oidc",
+                SignInScheme = "Cookies",
+
+                Authority = "http://localhost:5000",
+                RequireHttpsMetadata = false,
+
+                ClientId = "mvc",
+                ClientSecret = "secret",
+
+                ResponseType = "code id_token",
+                Scope = { "api1", "offline_access" },
+
+                GetClaimsFromUserInfoEndpoint = true,
+                SaveTokens = true
+            });
+
 
             app.UseStaticFiles();
 
