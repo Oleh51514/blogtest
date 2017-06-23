@@ -11,11 +11,11 @@
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 /* Carousel */
 .carousel-caption p {
@@ -35,3 +35,79 @@ textarea {
         display: none;
     }
 }
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+
+/* CSS used here will be applied after bootstrap.css */
+
+/* Create a medium height at 40px */
+.navbar-md {
+    min-height: 40px
+}
+
+    .navbar-md .navbar-brand,
+    .navbar-md .navbar-nav > li > a {
+        padding-top: 10px;
+        padding-bottom: 10px
+    }
+
+    .navbar-md .navbar-brand {
+        height: 40px
+    }
+
+    .navbar-md .navbar-toggle {
+        margin: 6px 12px 6px 0px;
+        padding: 6px 7px 6px 7px;
+    }
+
+        .navbar-md .navbar-toggle .icon-bar {
+            width: 19px;
+        }
+
+
+/* Create a small height at 30px */
+.navbar-sm {
+    min-height: 30px
+}
+
+    .navbar-sm .navbar-brand,
+    .navbar-sm .navbar-nav > li > a {
+        padding-top: 5px;
+        padding-bottom: 5px
+    }
+
+    .navbar-sm .navbar-brand {
+        height: 30px
+    }
+
+    .navbar-sm .navbar-toggle {
+        margin: 3px 9px 3px 0px;
+        padding: 4px 4px 4px 4px;
+    }
+
+        .navbar-sm .navbar-toggle .icon-bar {
+            width: 16px;
+        }

@@ -25,7 +25,8 @@ namespace blogtest.DAL.Migrations
 
                     b.Property<int>("PostId");
 
-                    b.Property<string>("TextComment");
+                    b.Property<string>("TextComment")
+                        .IsRequired();
 
                     b.HasKey("CommentId");
 
@@ -41,9 +42,11 @@ namespace blogtest.DAL.Migrations
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("NamePost");
+                    b.Property<string>("NamePost")
+                        .IsRequired();
 
                     b.HasKey("PostId");
 

@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using blogtest.DAL;
-using Microsoft.EntityFrameworkCore;
-
-using System.IdentityModel.Tokens.Jwt;
-
-using blogtest.DAL.Context;
+using AutoMapper;
+using blogtest.Bootstrap;
 
 namespace blogtest.Mvc
 {
@@ -37,11 +30,10 @@ namespace blogtest.Mvc
 
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection1");
-            //services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
-            //services.AddDbContext<BlogDbContext>(options =>
-            //    options.UseSqlServer(connectionString));
-            // Add framework services.
+            services.AddCoreManagerBootstrap();
+
+            services.AddAutoMapper();
             services.AddMvc();
         }
 

@@ -1,7 +1,7 @@
 ﻿using blogtest.DAL.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-
+using blogtest.DAL.Repositories;
 
 namespace blogtest.DAL
 {
@@ -15,6 +15,10 @@ namespace blogtest.DAL
             services.AddDbContext<BlogDbContext>(options =>
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly("blogtest.DAL")));
 
+            services.AddTransient<IEntitiesContext, BlogDbContext>();
+
+            services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
             return services;
         }
 

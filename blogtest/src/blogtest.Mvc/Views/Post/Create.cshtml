@@ -1,0 +1,47 @@
+@model blogtest.Common.Dtos.PostDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-12">
+            <h1 class="page-header">
+                Post
+            </h1>
+            <form asp-action="Create" asp-controller="Post" asp-anti-forgery="true">
+
+
+                <div class="col-lg-6">
+                    <div><span asp-validation-for="NamePost"></span></div>
+                    <div><span asp-validation-for="Description"></span></div>
+                    <br />
+                    <input placeholder="name blog..." class="form-control" type="text" asp-for="NamePost">
+                    <input style="display:none" type="text" asp-for="PostId">
+                    <br />
+                    <textarea placeholder="description blog..." class="form-control" asp-for="Description" rows="5"></textarea>
+                    <br />
+                    @if (Model.PostId == 0)
+                    {
+                        @*<input type="submit" class="btn btn-success" value="Save" />*@
+                        @*<a class="btn btn-success" asp-controller="Post" asp-action="Create"><i class="glyphicon glyphicon-plus"></i> Create new post</a>*@
+                        <input type="submit" class="btn btn-success" value="Create new post" />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-primary" value="Save change" />
+                    }
+                    
+                        
+                    
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+

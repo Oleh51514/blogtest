@@ -8,33 +8,46 @@ using Microsoft.AspNetCore.Authentication;
 using IdentityModel.Client;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using blogtest.BLL;
+using blogtest.BLL.Interfaces;
+using blogtest.Mvc.Models;
+using blogtest.Common.Dtos;
 
 namespace blogtest.Mvc.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller  
     {
-        public IActionResult Index()
+
+        private readonly IPostService _postService;
+
+        public HomeController(IPostService postService)
         {
-            return View();
+            _postService = postService;
         }
 
-        public IActionResult AdminPanel()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View();
+            int pageSize = 3;   // количество элементов на странице
+
+            var source = await _postService.GetAllAsync();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize);
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Posts = items
+            };
+            return View(viewModel);
         }
+
+
         [Authorize]
         public RedirectToRouteResult Secure()
         {
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
-        //[Authorize]
-        //public IActionResult Secure()
-        //{
-        //    ViewData["Message"] = "Secure page.";
-        //    string nameuse = User.Identity.Name;
-        //    var user = HttpContext.User.Identity.Name;
-        //    return View();
-        //}
 
         public async Task Logout()
         {

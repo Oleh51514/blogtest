@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blogtest.Common", "blogtest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blogtest.Bootstrap", "blogtest.Bootstrap\blogtest.Bootstrap.csproj", "{4F403581-F9F9-4274-8960-F6FD68DDA083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{DDA1C1C7-BEBD-4A03-B43D-6909819E9ED2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +49,6 @@ Global
 		{4F403581-F9F9-4274-8960-F6FD68DDA083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F403581-F9F9-4274-8960-F6FD68DDA083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F403581-F9F9-4274-8960-F6FD68DDA083}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDA1C1C7-BEBD-4A03-B43D-6909819E9ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDA1C1C7-BEBD-4A03-B43D-6909819E9ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDA1C1C7-BEBD-4A03-B43D-6909819E9ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDA1C1C7-BEBD-4A03-B43D-6909819E9ED2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +61,5 @@ Global
 		{F3AF9E10-CD7B-47D0-BB62-843FACA0B134} = {4CDECCAA-A234-4A05-BD98-42E413E3AE8F}
 		{8AFC6DAA-C383-4468-8EA6-9C1F225D2DE6} = {4CDECCAA-A234-4A05-BD98-42E413E3AE8F}
 		{4F403581-F9F9-4274-8960-F6FD68DDA083} = {4CDECCAA-A234-4A05-BD98-42E413E3AE8F}
-		{DDA1C1C7-BEBD-4A03-B43D-6909819E9ED2} = {4CDECCAA-A234-4A05-BD98-42E413E3AE8F}
 	EndGlobalSection
 EndGlobal

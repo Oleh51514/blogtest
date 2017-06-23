@@ -8,7 +8,9 @@ namespace blogtest.DAL.Entities
     public class Post
     {
         public int PostId { get; set; }
+        [Required]
         public string NamePost { get; set; }
+        [Required]
         public string Description { get; set; }
 
         [DataType(DataType.Date)]

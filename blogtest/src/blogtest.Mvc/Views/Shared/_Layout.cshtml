@@ -19,96 +19,124 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-    @*<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top navbar-md">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">BlogTest</a>
+                <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Post" asp-action="GetPostList">Blog</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Post" asp-action="Manage">Manage</a></li>
+                    }
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(User.Identity.IsAuthenticated ? User.Claims.Where(g => g.Type == "name").FirstOrDefault().Value : "Anonim")  <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">User info</a></li>
+                                <li><a href="#">Notifications : 0</a></li>
+                                <li class="divider"></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Logout"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Secure">Log in</a></li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    @*<div class="navbar navbar-fixed-top navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">BLOGTEST</a><a class="navbar-toggle"
+                                                                data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="glyphicon glyphicon-bar"></span>
+                    <span class="glyphicon glyphicon-bar"></span>
+                    <span class="glyphicon glyphicon-bar"></span>
+                </a>
+            </div>
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blog_test</a>
-                </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                        <li><a asp-area="" asp-controller="Post" asp-action="GetPostList"><i class="glyphicon glyphicon-list-alt"></i> Blog</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-area="" asp-controller="Post" asp-action="AdminPanelPost"><i class="glyphicon glyphicon-wrench"></i> Admin Panel</a></li>
+                        }
+                    </ul>
+                    <ul class="nav pull-right navbar-nav">
+                        <li class="menu-item dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: @(User.Identity.IsAuthenticated ? User.Claims.Where(g => g.Type == "name").FirstOrDefault().Value : "Anonim")  <b class="caret"></b></a>
+
+
+                            <ul class="dropdown-menu">
+                                <li class="menu-item dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-paperclip"></i> Notifications : 0 </a>
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li class="menu-item dropdown">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a asp-area="" asp-controller="Home" asp-action="Logout"><i class="glyphicon glyphicon-off"></i> Logout</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="" asp-controller="Home" asp-action="Secure"> <i class="glyphicon glyphicon-off"></i> Login</a>
+                                    }
+                                </li>
+
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>*@
-    <div class="navbar navbar-fixed-top navbar-default">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">BLOGTEST</a><a class="navbar-toggle"
-                                                            data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="glyphicon glyphicon-bar"></span>
-                <span class="glyphicon glyphicon-bar"></span>
-                <span class="glyphicon glyphicon-bar"></span>
-            </a>
-        </div>
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-area="" asp-controller="Home" asp-action="Adminpanel"><i class="glyphicon glyphicon-wrench"></i> Admin Panel</a></li>
-                    }
-                </ul>
-                <ul class="nav pull-right navbar-nav">
-                    <li class="menu-item dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: @(User.Identity.IsAuthenticated ? User.Claims.Where(g => g.Type == "name").FirstOrDefault().Value : "Anonim")  <b class="caret"></b></a>
+        </div>*@
 
-
-                        <ul class="dropdown-menu">
-                            <li class="menu-item dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-paperclip"></i> Notifications : 0 </a>
-                            </li>
-
-                            <li class="divider"></li>
-
-                            <li class="menu-item dropdown">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <a asp-area="" asp-controller="Home" asp-action="Logout"><i class="glyphicon glyphicon-off"></i> Logout</a>
-
-                                }
-                                else
-                                {
-                                    <a asp-area="" asp-controller="Home" asp-action="Secure"> <i class="glyphicon glyphicon-off"></i> Login</a>
-                                }
-                            </li>
-
-                        </ul>
-                    </li>
-
-
-
-
-                </ul>
-            </div>
-
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </div>
-    <!-- /.navbar -->
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - blogtest.Mvc</p>
-        </footer>
+
+
     </div>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
         <script src="~/js/site.js"></script>
     </environment>
     <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+        </script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
