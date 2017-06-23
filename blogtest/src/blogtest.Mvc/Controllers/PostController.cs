@@ -25,7 +25,7 @@ namespace blogtest.Mvc.Controllers
 
         public async Task<IActionResult> GetPostList(int page = 1)
         {
-            int pageSize = 3;   // количество элементов на странице
+            int pageSize = 3;   
 
             var source = await _postService.GetAllAsync();
             var count = source.Count();
