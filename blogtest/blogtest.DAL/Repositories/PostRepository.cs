@@ -1,5 +1,5 @@
 ﻿using blogtest.DAL.Context;
-
+using blogtest.DAL.Interfaces;
 using blogtest.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,86 +10,16 @@ using System.Threading.Tasks;
 
 namespace blogtest.DAL.Repositories
 {
-    public class PostRepository : IPostRepository
+    public class PostRepository: BaseRepository<Post>, IPostRepository
     {
-        private readonly BlogDbContext _entitiesContext;
-
-        public PostRepository(IServiceProvider serviceProvider)
+        public PostRepository(
+            IServiceProvider serviceProvider,
+            BlogDbContext context
+        ) : base(context)
         {
-
-            //_entitiesContext = (IEntitiesContext)entitiesContext;
-            _entitiesContext = (BlogDbContext)serviceProvider.GetService(typeof(IEntitiesContext));
-        }
-        
-        public async Task<IEnumerable<Post>> GetAllAsync()
-        {            
-             var res = await _entitiesContext.Posts.Include(p => p.Comment).ToListAsync();
-            return res;
+            //_entitiesContext = (BlogDbContext)serviceProvider.GetService(typeof(IEntitiesContext));
         }
 
-        public async Task<Post> GetById(int id)
-        {
-            return await _entitiesContext.Posts.Where(c => c.Id == id).Include(p => p.Comment).FirstOrDefaultAsync();
-        }
-        public async Task AddAsync(Post entity)
-        {
-            if (entity == null)
-                throw new InvalidOperationException("Unable to add a null entity to the repository.");
-
-            await _entitiesContext.Posts.AddAsync(entity);
-            _entitiesContext.SaveChanges();
-        }
-
-        public Post Update(Post entity)
-        {
-            entity = _entitiesContext.Posts.Update(entity).Entity;
-            _entitiesContext.SaveChanges();
-            return entity;
-        }
-
-        public void Remove(int id)
-        {
-            var entity = new Post() { Id = id };
-            this.Remove(entity);
-        }
-
-        private void Remove(Post entity)
-        {
-            if (entity == null)
-                throw new InvalidOperationException("Unable to delete a null entity to the repository.");
-            _entitiesContext.Posts.Attach(entity);
-            _entitiesContext.Entry(entity).State = EntityState.Deleted;
-            _entitiesContext.Remove(entity);
-            _entitiesContext.SaveChanges();
-        }
-
-
-        //public Foo GetSingle(int fooId)
-        //{
-        //    var query = this.GetAll().FirstOrDefault(x => x.FooId == fooId);
-        //    return query;
-        //}
-
-        //public void Add(Foo entity)
-        //{
-        //    context.Foos.Add(entity);
-        //}
-
-        //public void Delete(Foo entity)
-        //{
-        //    context.Foos.Remove(entity);
-        //}
-
-        //public void Edit(Foo entity)
-        //{
-        //    context.Entry<Foo>(entity).State = System.Data.EntityState.Modified;
-        //}
-
-        //public void Save()
-        //{
-
-        //    context.SaveChanges();
-        //}
     }
 }
 

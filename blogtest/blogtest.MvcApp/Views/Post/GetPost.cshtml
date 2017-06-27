@@ -22,7 +22,7 @@
             <hr>
 
             <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Post.CreateDate.Date .</p>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Post.CreationDate.Date .</p>
 
             <hr>
 
@@ -58,20 +58,22 @@
             <!-- Posted Comments -->
             <!-- Comment -->
             <div id="results" class="media">
-                @foreach (var item in Model.Coments.Reverse())
-                {
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            User: anonym
-                            <small>datetome: @item.CreateDate pm.</small>
-                        </h4>
-                        @item.TextComment
-                    </div>
-                    <br />
-                    <br />
+                @if(Model.Coments != null){ 
+                    foreach (var item in Model.Coments.Reverse())
+                    {
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                User: anonym
+                                <small>datetome: @item.CreationDate pm.</small>
+                            </h4>
+                            @item.TextComment
+                        </div>
+                        <br/>
+                        <br/>
+                    }
                 }
             </div>
 

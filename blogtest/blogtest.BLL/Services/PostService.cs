@@ -7,6 +7,7 @@ using AutoMapper;
 
 using System.Threading.Tasks;
 using blogtest.Entities.Entities;
+using blogtest.DAL.Interfaces;
 
 namespace blogtest.BLL.Services
 {
@@ -19,30 +20,35 @@ namespace blogtest.BLL.Services
             _postRepository = postRepository;
         }             
 
-        public async Task<IEnumerable<Post>> GetAllAsync()
+        public IEnumerable<Post> GetAll()
         {            
-            return await _postRepository.GetAllAsync();
+            return _postRepository.Get();
             
         }
 
-        public async Task<Post> GetById(int id)
+        public Post GetById(string id)
         {
-            return await _postRepository.GetById(id);          
+            var res = _postRepository.GetByID(id);
+            _postRepository.Save();
+            return res;
         }
 
-        public async Task AddAsync(Post entity)
+        public void Add(Post entity)
         {
-            await _postRepository.AddAsync(entity);
+            _postRepository.Insert(entity);
+            _postRepository.Save();
         }
 
-        public Post Update(Post entity)
+        public void Update(Post entity)
         {
-            return _postRepository.Update(entity);
+            _postRepository.Update(entity);
+            _postRepository.Save();
         }
 
-        public void Remove(int id)
+        public void Remove(string id)
         {
-            _postRepository.Remove(id);
+            _postRepository.Delete(id);
+            _postRepository.Save();
         }
        
     }

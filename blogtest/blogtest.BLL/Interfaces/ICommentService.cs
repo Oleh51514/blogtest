@@ -9,9 +9,7 @@ namespace blogtest.BLL.Interfaces
 {
     public interface ICommentService
     {
-        Task<IEnumerable<Comment>> GetAllAsync(int postId);
+        IEnumerable<Comment> GetByPostId(string postId);
         void Create(Comment ent);
-        Task AddAsync(Comment entity);
-        Comment Update(Comment entity);
     }
 }

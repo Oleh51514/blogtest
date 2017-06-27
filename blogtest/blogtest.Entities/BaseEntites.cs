@@ -8,26 +8,17 @@ namespace blogtest.Entities
     public abstract class BaseEntity
     {
         private String id;
+
         [Key]
         [Required]
         public String Id
         {
-            get
-            {
-                return id ?? (id = Guid.NewGuid().ToString());
-            }
-            set
-            {
-                id = value;
-            }
-        }
+            //get {return id ?? (id = Guid.NewGuid().ToString()); }
+            //set { id = value; }
+            get; set; }
 
         [Required]
-        public DateTime CreationDate
-        {
-            get;
-            set;
-        }
+        public DateTime CreationDate { get; set; }
 
         protected BaseEntity()
         {

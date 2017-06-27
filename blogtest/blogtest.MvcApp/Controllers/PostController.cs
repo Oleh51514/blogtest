@@ -23,11 +23,11 @@ namespace blogtest.MvcApp.Controllers
 
         }
 
-        public async Task<IActionResult> GetPostList(int page = 1)
+        public IActionResult GetPostList(int page = 1)
         {
             int pageSize = 3;
 
-            var source = await _postService.GetAllAsync();
+            var source = _postService.GetAll();
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize);
 
@@ -40,10 +40,10 @@ namespace blogtest.MvcApp.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> GetPost(int postId)
+        public IActionResult GetPost(string postId)
         {
 
-            Post postSource = await _postService.GetById(postId);
+            Post postSource = _postService.GetById(postId);
             //var commentSource = await _commentService.GetAllAsync(postId);
             var model = new PostViewModel
             {
@@ -53,43 +53,50 @@ namespace blogtest.MvcApp.Controllers
 
             return View(model);
         }
+
         [Authorize]
-        public async Task<IActionResult> Manage()
+        public IActionResult Manage()
         {
-            var source = await _postService.GetAllAsync();
+            var source = _postService.GetAll();
             return View(source);
         }
+
         [Authorize]
-        public async Task<IActionResult> Create(int id = 0)
+        [HttpGet]
+        public IActionResult Create(string id)
         {
-            Post post = await _postService.GetById(id);
-            if (post == null)
+            if (id == null)
             {
-                post = new Post();
+                return View(new Post());
             }
+
+            var post = _postService.GetById(id);
             return View(post);
         }
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(Post model)
+        public IActionResult Create(Post model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (model.Id == 0)
+            //var post =_postService.GetById(model.Id);
+            if (model.Id == null)
             {
-                model.CreateDate = System.DateTime.Now;
-                await _postService.AddAsync(model);
+                //model.CreationDate = System.DateTime.Now;
+                _postService.Add(model);
             }
             else
             {
-                var post = _postService.Update(model);
+                _postService.Update(model);
             }
 
             return RedirectToAction("Manage");
         }
+
         [Authorize]
-        public IActionResult Delete(int PostId)
+        public IActionResult Delete(string PostId)
         {
             _postService.Remove(PostId);
             return RedirectToAction("Manage");

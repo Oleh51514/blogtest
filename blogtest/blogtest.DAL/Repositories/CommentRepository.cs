@@ -7,73 +7,19 @@ using blogtest.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using blogtest.Entities.Entities;
+using blogtest.DAL.Interfaces;
 
 namespace blogtest.DAL.Repositories
 {
-    public class CommentRepository : ICommentRepository
+    public class CommentRepository : BaseRepository<Comment>, ICommentRepository
     {
-
-        private readonly BlogDbContext _entitiesContext;
-
-        public CommentRepository(IServiceProvider serviceProvider)
+        public CommentRepository(
+            IServiceProvider serviceProvider,
+            BlogDbContext context
+        ) : base(context)
         {
             //_entitiesContext = (IEntitiesContext)entitiesContext;
-            _entitiesContext = (BlogDbContext)serviceProvider.GetService(typeof(IEntitiesContext));
+            //_entitiesContext = (BlogDbContext)serviceProvider.GetService(typeof(IEntitiesContext));
         }
-
-        public void Create(Comment ent)
-        {
-
-            //Post pp = new Post
-            //{
-            //    CreateDate = System.DateTime.Now,
-            //    Description = "fsdfs",
-            //    NamePost = "111111"
-            //};
-            //_entitiesContext.Posts.Add(pp);
-            //_entitiesContext.SaveChanges();
-
-            //Comment cc = new Comment
-            //{
-            //    CreateDate = System.DateTime.Now,
-            //    TextComment = "dfsd",
-            //    Post = pp
-            //};
-
-            //_entitiesContext.Comments.Add(cc);
-            //_entitiesContext.SaveChanges();
-
-            
-            _entitiesContext.Comments.Add(ent);
-            _entitiesContext.SaveChanges();
-        }
-
-        public async Task<IEnumerable<Comment>> GetAllAsync(int postId)
-        {
-            var list = await _entitiesContext.Comments.Where(p => p.Post.Id == postId).ToListAsync();
-
-            return list;
-        }
-
-        public void Save()
-        {
-            _entitiesContext.SaveChanges();
-        }
-
-        public async Task AddAsync(Comment entity)
-        {
-            if (entity == null)
-                throw new InvalidOperationException("Unable to add a null entity to the repository.");
-
-            await _entitiesContext.Comments.AddAsync(entity);
-            _entitiesContext.SaveChanges();
-        }
-
-        public Comment Update(Comment entity)
-        {
-            return _entitiesContext.Comments.Update(entity).Entity;
-        }
-
-
     }
 }

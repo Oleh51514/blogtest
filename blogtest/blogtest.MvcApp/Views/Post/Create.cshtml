@@ -23,7 +23,7 @@
                     <br />
                     <textarea placeholder="description blog..." class="form-control" asp-for="Description" rows="5"></textarea>
                     <br />
-                    @if (Model.Id == 0)
+                    @if (Model.Id == null)
                     {
                         @*<input type="submit" class="btn btn-success" value="Save" />*@
                         @*<a class="btn btn-success" asp-controller="Post" asp-action="Create"><i class="glyphicon glyphicon-plus"></i> Create new post</a>*@

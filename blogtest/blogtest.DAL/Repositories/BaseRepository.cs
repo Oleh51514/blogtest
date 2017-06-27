@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using blogtest.DAL.Interfaces;
+using blogtest.Entities;
 
 namespace blogtest.DAL.Repositories
 {
-    public class BaseRepository<TEntity> where TEntity : class
+    public class BaseRepository<TEntity>: IBaseRepository<TEntity>
+        where TEntity : BaseEntity
     {
         public DbContext Context { get; private set; }
         public DbSet<TEntity> dbSet;
@@ -25,10 +24,11 @@ namespace blogtest.DAL.Repositories
 
         public virtual IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters)
         {
-            return dbSet.SqlQuery(query, parameters).ToList();
+            return dbSet.FromSql(query, parameters).ToList();
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -38,7 +38,7 @@ namespace blogtest.DAL.Repositories
             }
 
             foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                (new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
@@ -80,9 +80,11 @@ namespace blogtest.DAL.Repositories
 
         public virtual void Update(TEntity entityToUpdate)
         {
+            //dbSet.Update(entityToUpdate);
             dbSet.Attach(entityToUpdate);
             Context.Entry(entityToUpdate).State = EntityState.Modified;
         }
+
 
         public virtual void Save()
         {
@@ -90,26 +92,11 @@ namespace blogtest.DAL.Repositories
             {
                 Context.SaveChanges();
             }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Class: {0}, Property: {1}, Error: {2}",
-                            validationErrors.Entry.Entity.GetType().FullName,
-                            validationError.PropertyName,
-                            validationError.ErrorMessage);
-                    }
-                }
-
-                throw;  // You can also choose to handle the exception here...
-            }
             catch (Exception ex)
             {
 
             }
-
         }
     }
+
 }

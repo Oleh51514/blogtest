@@ -9,10 +9,10 @@ namespace blogtest.BLL.Interfaces
 {
     public interface IPostService
     {
-        Task<IEnumerable<Post>> GetAllAsync();
-        Task<Post> GetById(int id);
-        Task AddAsync(Post entity);
-        Post Update(Post entity);
-        void Remove(int id);
+        IEnumerable<Post> GetAll();
+        Post GetById(string id);
+        void Add(Post entity);
+        void Update(Post entity);
+        void Remove(string id);
     }
 }

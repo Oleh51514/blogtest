@@ -24,13 +24,13 @@ namespace blogtest.MvcApp.Controllers
         public async Task<IActionResult> GetCommentList(Comment model)
         {
            
-            model.CreateDate = System.DateTime.Now;
+            //model.CreateDate = System.DateTime.Now;
             if (ModelState.IsValid)
             {
                 _commentService.Create(model);
             }
 
-            var source = await _commentService.GetAllAsync(model.Post.Id);
+            var source = _commentService.GetByPostId(model.Post.Id);
             return PartialView(source);
         }
     }
