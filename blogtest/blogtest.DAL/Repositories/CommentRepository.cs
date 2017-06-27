@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using blogtest.DAL.Entities;
+
 using blogtest.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using blogtest.Entities.Entities;
 
 namespace blogtest.DAL.Repositories
 {
@@ -22,14 +23,35 @@ namespace blogtest.DAL.Repositories
 
         public void Create(Comment ent)
         {
+
+            //Post pp = new Post
+            //{
+            //    CreateDate = System.DateTime.Now,
+            //    Description = "fsdfs",
+            //    NamePost = "111111"
+            //};
+            //_entitiesContext.Posts.Add(pp);
+            //_entitiesContext.SaveChanges();
+
+            //Comment cc = new Comment
+            //{
+            //    CreateDate = System.DateTime.Now,
+            //    TextComment = "dfsd",
+            //    Post = pp
+            //};
+
+            //_entitiesContext.Comments.Add(cc);
+            //_entitiesContext.SaveChanges();
+
+            
             _entitiesContext.Comments.Add(ent);
             _entitiesContext.SaveChanges();
         }
 
         public async Task<IEnumerable<Comment>> GetAllAsync(int postId)
         {
-            var list =  await _entitiesContext.Comments.Where(p => p.PostId == postId).ToListAsync();
-            
+            var list = await _entitiesContext.Comments.Where(p => p.Post.Id == postId).ToListAsync();
+
             return list;
         }
 

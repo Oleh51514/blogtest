@@ -1,4 +1,4 @@
-@model blogtest.Common.Dtos.PostDto
+@model blogtest.Entities.Entities.Post
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,11 +19,11 @@
                     <div><span asp-validation-for="Description"></span></div>
                     <br />
                     <input placeholder="name blog..." class="form-control" type="text" asp-for="NamePost">
-                    <input style="display:none" type="text" asp-for="PostId">
+                    <input style="display:none" type="text" asp-for="Id">
                     <br />
                     <textarea placeholder="description blog..." class="form-control" asp-for="Description" rows="5"></textarea>
                     <br />
-                    @if (Model.PostId == 0)
+                    @if (Model.Id == 0)
                     {
                         @*<input type="submit" class="btn btn-success" value="Save" />*@
                         @*<a class="btn btn-success" asp-controller="Post" asp-action="Create"><i class="glyphicon glyphicon-plus"></i> Create new post</a>*@

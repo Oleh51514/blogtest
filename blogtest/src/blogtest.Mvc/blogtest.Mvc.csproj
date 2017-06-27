@@ -29,7 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\blogtest.BLL\blogtest.BLL.csproj" />
-    <ProjectReference Include="..\..\blogtest.Bootstrap\blogtest.Bootstrap.csproj" />
     <ProjectReference Include="..\..\blogtest.DAL\blogtest.DAL.csproj" />
   </ItemGroup>
 

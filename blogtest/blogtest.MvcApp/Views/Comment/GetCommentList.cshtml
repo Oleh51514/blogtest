@@ -1,0 +1,18 @@
+@model IEnumerable<blogtest.Entities.Entities.Comment>
+
+    @foreach (var item in Model.Reverse())
+    {
+        <a class="pull-left" href="#">
+            <img class="media-object" src="http://placehold.it/64x64" alt="">
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">
+                User: anonym
+                <small>datetome: @item.CreateDate pm.</small>
+            </h4>
+            @item.TextComment
+        </div>
+                <br />
+                <br />
+    }
+

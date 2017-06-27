@@ -1,48 +1,42 @@
 ﻿using AutoMapper;
 using blogtest.BLL.Interfaces;
 using blogtest.DAL.Repositories;
-using System;
+using blogtest.Entities.Entities;
 using System.Collections.Generic;
-using System.Text;
-using blogtest.Common.Dtos;
 using System.Threading.Tasks;
-using blogtest.DAL.Entities;
+
 
 namespace blogtest.BLL.Services
 {
-    public class CommentService : BaseService, ICommentService
+    public class CommentService :  ICommentService
     {
         private readonly ICommentRepository _commentRepository;
-        public CommentService(
-            IMapper mapper,
-            ICommentRepository commentRepository
-        ) : base(mapper)
+        public CommentService( ICommentRepository commentRepository ) 
         {
             _commentRepository = commentRepository;
         }
 
-        public void Create(CommentDto entDto)
-        {
-            var ent = Mapper.Map<CommentDto, Comment>(entDto); ;
+        public void Create(Comment ent)
+        {        
             _commentRepository.Create(ent);
         }
 
-        public async Task<IEnumerable<CommentDto>> GetAllAsync(int postId)
+        public async Task<IEnumerable<Comment>> GetAllAsync(int postId)
         {
-            var rez = await _commentRepository.GetAllAsync(postId);
-            return Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDto>>(rez); ;
+            var res = await _commentRepository.GetAllAsync(postId);
+            return res;
+            
         }
 
-        public async Task AddAsync(CommentDto entity)
+        public async Task AddAsync(Comment entity)
         {
-            var post = Mapper.Map<CommentDto, Comment>(entity);
-            await _commentRepository.AddAsync(post);
+            await _commentRepository.AddAsync(entity);
         }
 
-        public CommentDto Update(CommentDto entity)
+        public Comment Update(Comment entity)
         {
-            var comment = Mapper.Map<CommentDto, Comment>(entity);
-            var commentDto = Mapper.Map<Comment, CommentDto>(_commentRepository.Update(comment));
+            
+            var commentDto = Mapper.Map<Comment, Comment>(_commentRepository.Update(entity));
             return commentDto;
         }
     }

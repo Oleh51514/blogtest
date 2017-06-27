@@ -43,7 +43,7 @@ namespace blogtest.WebApi
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             IdentityServerAuthenticationOptions identityServerValidationOptions = new IdentityServerAuthenticationOptions
             {
-                Authority = "https://localhost:44318/",
+                Authority = "https://localhost:5000/",
                 AllowedScopes = new List<string> { "dataEventRecords" },
                 ApiSecret = "dataEventRecordsSecret",
                 ApiName = "dataEventRecords",

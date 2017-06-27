@@ -11,35 +11,35 @@ using Newtonsoft.Json.Linq;
 using blogtest.BLL;
 using blogtest.BLL.Interfaces;
 using blogtest.Mvc.Models;
-using blogtest.Common.Dtos;
+
 
 namespace blogtest.Mvc.Controllers
 {
     public class HomeController : Controller  
     {
 
-        private readonly IPostService _postService;
+    
 
-        public HomeController(IPostService postService)
+        public HomeController()
         {
-            _postService = postService;
+  
         }
 
-        public async Task<IActionResult> Index(int page = 1)
+        public IActionResult Index()
         {
-            int pageSize = 3;   // количество элементов на странице
+            //int pageSize = 3;   // количество элементов на странице
 
-            var source = await _postService.GetAllAsync();
-            var count = source.Count();
-            var items = source.Skip((page - 1) * pageSize).Take(pageSize);
+            //var source = await _postService.GetAllAsync();
+            //var count = source.Count();
+            //var items = source.Skip((page - 1) * pageSize).Take(pageSize);
 
-            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                PageViewModel = pageViewModel,
-                Posts = items
-            };
-            return View(viewModel);
+            //PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            //IndexViewModel viewModel = new IndexViewModel
+            //{
+            //    PageViewModel = pageViewModel,
+            //    Posts = items
+            //};
+            return View();
         }
 
 

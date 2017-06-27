@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 
 export const appConstant = {
-    apiServer: 'http://localhost:5200/',
+    apiServer: 'http://localhost:5005/',
     authPath: 'api/Identity',
     confirmEmailUrl: 'http://localhost:5300/register/confirm-email',
     confirEmailByInviteUrl: 'http://localhost:5300/register/confirm-invite',

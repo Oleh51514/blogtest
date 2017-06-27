@@ -1,4 +1,4 @@
-@model IEnumerable<blogtest.Common.Dtos.CommentDto>
+@model IEnumerable<blogtest.Entities.Entities.Comment>
 
 @foreach (var item in Model.Reverse())
 {
@@ -8,7 +8,7 @@
                 <div class="media-body">
                     <h4 class="media-heading">
                         User: anonym 
-                        <small>datetome: @item.DateTime pm.</small>
+                        <small>datetome: @item.CreateDate pm.</small>
                     </h4>
                     @item.TextComment
                 </div>

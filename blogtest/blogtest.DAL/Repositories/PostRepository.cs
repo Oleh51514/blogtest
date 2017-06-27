@@ -1,5 +1,6 @@
 ﻿using blogtest.DAL.Context;
-using blogtest.DAL.Entities;
+
+using blogtest.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,13 @@ namespace blogtest.DAL.Repositories
         
         public async Task<IEnumerable<Post>> GetAllAsync()
         {            
-            return await _entitiesContext.Posts.ToListAsync();
+             var res = await _entitiesContext.Posts.Include(p => p.Comment).ToListAsync();
+            return res;
         }
 
         public async Task<Post> GetById(int id)
         {
-            return await _entitiesContext.Posts.Where(c => c.PostId == id).FirstOrDefaultAsync();
+            return await _entitiesContext.Posts.Where(c => c.Id == id).Include(p => p.Comment).FirstOrDefaultAsync();
         }
         public async Task AddAsync(Post entity)
         {
@@ -47,7 +49,7 @@ namespace blogtest.DAL.Repositories
 
         public void Remove(int id)
         {
-            var entity = new Post() { PostId = id };
+            var entity = new Post() { Id = id };
             this.Remove(entity);
         }
 

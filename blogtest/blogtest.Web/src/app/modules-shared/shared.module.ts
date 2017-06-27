@@ -8,6 +8,7 @@ import { DialogModule } from 'primeng/primeng';
 /* constant */ import { appConstant } from '../common/index.constants';
 /* api-service */ import { CustomRequestOptions } from '../common/services/api/custom-request-options.service';
 /* api-service */ import { TenantApiService } from '../common/services/api/entities/tenant.api.service';
+/* api-service */ import { PostApiService } from '../common/services/api/entities/post.api.service';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { DialogModule } from 'primeng/primeng';
     ],
     providers: [
         CustomRequestOptions,
-        TenantApiService
+        TenantApiService,
+        PostApiService
     ]
 })
 export class SharedModule {
@@ -38,7 +40,8 @@ export class SharedModule {
             providers: [
                 // CommonModule,
                 CustomRequestOptions,
-                TenantApiService
+                TenantApiService,
+                PostApiService
             ]
         };
     }

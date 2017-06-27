@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using blogtest.Mvc.Models;
 using blogtest.BLL.Interfaces;
-using blogtest.Common.Dtos;
+
 using Microsoft.AspNetCore.Authorization;
+using blogtest.Entities.Entities;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,7 +44,7 @@ namespace blogtest.Mvc.Controllers
         public async Task<IActionResult> GetPost(int postId)
         {
             
-            PostDto postSource = await _postService.GetById(postId);
+            Post postSource = await _postService.GetById(postId);
             var commentSource = await _commentService.GetAllAsync(postId);
             var model = new PostViewModel
             {
@@ -62,23 +63,23 @@ namespace blogtest.Mvc.Controllers
         [Authorize]
         public async Task<IActionResult> Create(int id = 0)
         {
-            PostDto post = await _postService.GetById(id);
+            Post post = await _postService.GetById(id);
             if (post == null)
             {
-                post = new PostDto();
+                post = new Post();
             }
             return View(post);
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(PostDto model)
+        public async Task<IActionResult> Create(Post model)
         {
             if (!ModelState.IsValid)
                 return View(model);
             
-            if (model.PostId == 0)
+            if (model.Id == 0)
             {
-                model.DateTime = System.DateTime.Now;
+                model.CreateDate = System.DateTime.Now;
                 await _postService.AddAsync(model);
             }
             else

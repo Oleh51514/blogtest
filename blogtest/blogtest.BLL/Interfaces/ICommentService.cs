@@ -1,4 +1,5 @@
-﻿using blogtest.Common.Dtos;
+﻿
+using blogtest.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,9 @@ namespace blogtest.BLL.Interfaces
 {
     public interface ICommentService
     {
-        Task<IEnumerable<CommentDto>> GetAllAsync(int postId);
-        void Create(CommentDto ent);
-        Task AddAsync(CommentDto entity);
-        CommentDto Update(CommentDto entity);
+        Task<IEnumerable<Comment>> GetAllAsync(int postId);
+        void Create(Comment ent);
+        Task AddAsync(Comment entity);
+        Comment Update(Comment entity);
     }
 }

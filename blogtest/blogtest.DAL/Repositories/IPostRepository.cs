@@ -1,4 +1,5 @@
-﻿using blogtest.DAL.Entities;
+﻿
+using blogtest.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

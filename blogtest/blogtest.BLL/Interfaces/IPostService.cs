@@ -1,4 +1,5 @@
-﻿using blogtest.Common.Dtos;
+﻿
+using blogtest.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,10 @@ namespace blogtest.BLL.Interfaces
 {
     public interface IPostService
     {
-        Task<IEnumerable<PostDto>> GetAllAsync();
-        Task<PostDto> GetById(int id);
-        Task AddAsync(PostDto entity);
-        PostDto Update(PostDto entity);
+        Task<IEnumerable<Post>> GetAllAsync();
+        Task<Post> GetById(int id);
+        Task AddAsync(Post entity);
+        Post Update(Post entity);
         void Remove(int id);
     }
 }

@@ -2,49 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using blogtest.Common.Dtos;
 using blogtest.DAL.Repositories;
 using AutoMapper;
-using blogtest.DAL.Entities;
+
 using System.Threading.Tasks;
+using blogtest.Entities.Entities;
 
 namespace blogtest.BLL.Services
 {
-    public class PostService: BaseService, IPostService
+    public class PostService:  IPostService
     {
         private readonly IPostRepository _postRepository;
 
-        public PostService(
-            IMapper mapper,
-            IPostRepository postRepository
-        ) : base(mapper)
+        public PostService( IPostRepository postRepository ) 
         {
             _postRepository = postRepository;
         }             
 
-        public async Task<IEnumerable<PostDto>> GetAllAsync()
+        public async Task<IEnumerable<Post>> GetAllAsync()
         {            
-            var rez = await _postRepository.GetAllAsync();
-            return Mapper.Map<IEnumerable<Post>, IEnumerable<PostDto>>(rez);
+            return await _postRepository.GetAllAsync();
+            
         }
 
-        public async Task<PostDto> GetById(int id)
+        public async Task<Post> GetById(int id)
         {
-            var rez = await _postRepository.GetById(id);
-            return Mapper.Map<Post, PostDto>(rez);
+            return await _postRepository.GetById(id);          
         }
 
-        public async Task AddAsync(PostDto entity)
+        public async Task AddAsync(Post entity)
         {
-            var post = Mapper.Map<PostDto, Post>(entity);
-            await _postRepository.AddAsync(post);
+            await _postRepository.AddAsync(entity);
         }
 
-        public PostDto Update(PostDto entity)
+        public Post Update(Post entity)
         {
-            var post = Mapper.Map<PostDto, Post>(entity);
-            var postDto = Mapper.Map<Post, PostDto>(_postRepository.Update(post));
-            return postDto;
+            return _postRepository.Update(entity);
         }
 
         public void Remove(int id)

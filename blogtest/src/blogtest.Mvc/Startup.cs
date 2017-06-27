@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using blogtest.DAL;
 using AutoMapper;
-using blogtest.Bootstrap;
+using blogtest.BLL;
 
 namespace blogtest.Mvc
 {
@@ -31,9 +31,7 @@ namespace blogtest.Mvc
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection1");
             services.AddStorageMSSQL(connectionString); // registering the context and SqlServer
-            services.AddCoreManagerBootstrap();
-
-            services.AddAutoMapper();
+            services.AddBLLServices();
             services.AddMvc();
         }
 
