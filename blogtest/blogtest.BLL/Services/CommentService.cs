@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using blogtest.BLL.Interfaces;
+﻿using blogtest.BLL.Interfaces;
 using blogtest.DAL.Interfaces;
-using blogtest.DAL.Repositories;
 using blogtest.Entities.Entities;
-using Microsoft.EntityFrameworkCore;
 using storagecore.Abstractions.Uow;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 
 namespace blogtest.BLL.Services
@@ -27,11 +23,11 @@ namespace blogtest.BLL.Services
             {
                 var repository = uow.GetCustomRepository<ICommentRepository>();
                 var postRepository = uow.GetCustomRepository<IPostRepository>();
-                var post = postRepository.Get(postId);
-                entity.Post = post;
-                repository.Update(entity);
-                uow.SaveChanges();
 
+                entity.Post = postRepository.Get(postId);
+                repository.Add(entity);
+
+                uow.SaveChanges();
             }
         }
 
@@ -41,9 +37,7 @@ namespace blogtest.BLL.Services
             {
                 var repository = uow.GetCustomRepository<ICommentRepository>();
                 return repository.Query(s => s.Post.Id == postId);
-
             }
-
         }
     }
 }
