@@ -3,7 +3,7 @@ using blogtest.DAL.Interfaces;
 using blogtest.Entities.Entities;
 using storagecore.Abstractions.Uow;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace blogtest.BLL.Services
 {
@@ -36,7 +36,9 @@ namespace blogtest.BLL.Services
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetCustomRepository<ICommentRepository>();
-                return repository.Query(s => s.Post.Id == postId);
+                return repository.Query(
+                    s => s.Post.Id == postId,
+                    o => o.OrderByDescending(f => f.CreationDate));
             }
         }
     }

@@ -27,15 +27,20 @@ namespace blogtest.MvcApp.Controllers
         {
             int pageSize = 3;
 
-            var source = _postService.GetAll();
-            var count = source.Count();
-            var items = source.Skip((page - 1) * pageSize).Take(pageSize);
+            //var source = _postService.GetAll();
+            //var count = source.Count();
+            //var items = source.Skip((page - 1) * pageSize).Take(pageSize);
+            var dataPage = _postService.GetDataPage(page, pageSize);
 
-            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            //PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            PageViewModel pageViewModel = new PageViewModel(
+                (int)dataPage.TotalItemCount,
+                dataPage.PageNumber,
+                dataPage.PageLength);
             IndexPostViewModel viewModel = new IndexPostViewModel
             {
                 PageViewModel = pageViewModel,
-                Posts = items
+                Posts = dataPage.Items
             };
             return View(viewModel);
         }
@@ -44,10 +49,11 @@ namespace blogtest.MvcApp.Controllers
         {
 
             Post postSource = _postService.GetById(postId);
-            //var commentSource = await _commentService.GetAllAsync(postId);
+            //var commentSource = await _commentService.GetAllAsync(postId);           
+
             var model = new PostViewModel
             {
-                Coments = postSource.Comment,
+                Coments = postSource.Comment.OrderByDescending(f => f.CreationDate),
                 Post = postSource
             };
 

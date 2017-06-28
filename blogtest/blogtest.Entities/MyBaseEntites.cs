@@ -14,9 +14,9 @@ namespace blogtest.Entities
         //[Required]
         //public String Id
         //{
-        //    //get {return id ?? (id = Guid.NewGuid().ToString()); }
-        //    //set { id = value; }
-        //    get; set; }
+        //    get {return id ?? (id = Guid.NewGuid().ToString()); }
+        //    set { id = value; }
+        //}
 
         [Required]
         public DateTime CreationDate { get; set; }
