@@ -11,6 +11,7 @@ using blogtest.DAL.Interfaces;
 using storagecore.Abstractions.Uow;
 using Microsoft.EntityFrameworkCore;
 using storagecore.EFCore.Paging;
+using storagecore.EFCore.Query;
 
 namespace blogtest.BLL.Services
 {
@@ -40,9 +41,12 @@ namespace blogtest.BLL.Services
 
         public DataPage<Post, string> GetDataPage(int pageNumber, int pageLenght)
         {
+            var orderBy = new OrderBy<Post>("CreationDate", true);
             return _pager.Get(
                     pageNumber,
-                    pageLenght
+                    pageLenght,
+                    orderBy
+
                 );
         }        
 

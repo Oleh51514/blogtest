@@ -26,13 +26,7 @@ namespace blogtest.MvcApp.Controllers
         public IActionResult GetPostList(int page = 1)
         {
             int pageSize = 3;
-
-            //var source = _postService.GetAll();
-            //var count = source.Count();
-            //var items = source.Skip((page - 1) * pageSize).Take(pageSize);
             var dataPage = _postService.GetDataPage(page, pageSize);
-
-            //PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             PageViewModel pageViewModel = new PageViewModel(
                 (int)dataPage.TotalItemCount,
                 dataPage.PageNumber,
@@ -47,17 +41,8 @@ namespace blogtest.MvcApp.Controllers
 
         public IActionResult GetPost(string postId)
         {
-
             Post postSource = _postService.GetById(postId);
-            //var commentSource = await _commentService.GetAllAsync(postId);           
-
-            var model = new PostViewModel
-            {
-                Coments = postSource.Comment.OrderByDescending(f => f.CreationDate),
-                Post = postSource
-            };
-
-            return View(model);
+            return View(postSource);
         }
 
         [Authorize]
@@ -87,10 +72,8 @@ namespace blogtest.MvcApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            //var post =_postService.GetById(model.Id);
             if (model.Id == null)
             {
-                //model.CreationDate = System.DateTime.Now;
                 _postService.Add(model);
             }
             else

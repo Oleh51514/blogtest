@@ -9,8 +9,10 @@ namespace storagecore.EFCore.Query
 {
     public class OrderBy<TEntity>
     {
-        public OrderBy(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> expression)
-        {
+        public OrderBy(
+            Func<IQueryable<TEntity>,
+            IOrderedQueryable<TEntity>> expression
+        ) {
             Expression = expression;
         }
 
