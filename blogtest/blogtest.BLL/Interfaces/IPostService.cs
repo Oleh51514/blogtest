@@ -1,5 +1,6 @@
 ﻿
 using blogtest.Entities.Entities;
+using storagecore.EFCore.Paging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,6 @@ namespace blogtest.BLL.Interfaces
         void Add(Post entity);
         void Update(Post entity);
         void Remove(string id);
+        DataPage<Post, string> GetDataPage(int pageNumber, int pageLenght);
     }
 }
