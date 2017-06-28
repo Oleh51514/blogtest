@@ -46,7 +46,7 @@
 
                 <form role="form" action="/Comment/GetCommentList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
                     <div class="form-group">
-                        <input style="display:none" class="form-control" type="number" name="PostId" value=@Model.Post.Id />
+                        <input style="display:none" class="form-control" type="text" name="PostId" value=@Model.Post.Id />
                         <textarea class="form-control" name="TextComment" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -21,16 +21,16 @@ namespace blogtest.MvcApp.Controllers
             _commentService = commentService;
         }
         // GET: /<controller>/
-        public async Task<IActionResult> GetCommentList(Comment model)
+        public IActionResult GetCommentList(Comment model, string postId)
         {
            
             //model.CreateDate = System.DateTime.Now;
             if (ModelState.IsValid)
             {
-                _commentService.Create(model);
+                _commentService.Create(model, postId);
             }
 
-            var source = _commentService.GetByPostId(model.Post.Id);
+            var source = _commentService.GetAllByPostId(model.Post.Id);
             return PartialView(source);
         }
     }

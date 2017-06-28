@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\blogtest.Entities\blogtest.Entities.csproj" />
+    <ProjectReference Include="..\storagecore.Abstractions\storagecore.Abstractions.csproj" />
+    <ProjectReference Include="..\storagecore.EFCore\storagecore.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

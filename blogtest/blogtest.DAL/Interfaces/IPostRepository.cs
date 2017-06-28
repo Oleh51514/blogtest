@@ -1,5 +1,6 @@
 ﻿
 using blogtest.Entities.Entities;
+using storagecore.Abstractions.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace blogtest.DAL.Interfaces
 {
-    public interface IPostRepository: IBaseRepository<Post>
+    public interface IPostRepository : IBaseRepository<Post, string>
     {
-        //Task<IEnumerable<Post>> GetAllAsync();
-        //Task<Post> GetById(int id);
-        //Task AddAsync(Post entity);
-        //Post Update(Post entity);
-        //void Remove(int id);
+        
     }
 }

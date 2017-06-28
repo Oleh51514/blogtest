@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using blogtest.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using blogtest.DAL.Interfaces;
+using storagecore.EFCore;
 
 namespace blogtest.DAL
 {
@@ -16,8 +17,7 @@ namespace blogtest.DAL
             string connectionString
         )
         {
-            services.AddTransient<IEntitiesContext, BlogDbContext>();
-            services.AddTransient<BlogDbContext, BlogDbContext>();
+            services.AddStorageCoreDataAccess<BlogDbContext>();
             services.AddDbContext<BlogDbContext>(options =>
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly("blogtest.DAL")));
 

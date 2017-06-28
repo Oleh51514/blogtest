@@ -2,12 +2,11 @@
 using blogtest.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
-
+using storagecore.Abstractions.Context;
 
 namespace blogtest.DAL.Context
 {
-    public class BlogDbContext : IdentityDbContext<ApplicationUser>, IEntitiesContext
+    public class BlogDbContext : IdentityDbContext<ApplicationUser>, IEntityContext
     {
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }       

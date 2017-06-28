@@ -9,7 +9,7 @@ namespace blogtest.BLL.Interfaces
 {
     public interface ICommentService
     {
-        IEnumerable<Comment> GetByPostId(string postId);
-        void Create(Comment ent);
+        IEnumerable<Comment> GetAllByPostId(string postId);
+        void Create(Comment ent, string postId);
     }
 }

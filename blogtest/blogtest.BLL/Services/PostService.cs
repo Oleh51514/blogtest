@@ -8,47 +8,69 @@ using AutoMapper;
 using System.Threading.Tasks;
 using blogtest.Entities.Entities;
 using blogtest.DAL.Interfaces;
+using storagecore.Abstractions.Uow;
+using Microsoft.EntityFrameworkCore;
 
 namespace blogtest.BLL.Services
 {
     public class PostService:  IPostService
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IUowProvider _uowProvider;
 
-        public PostService( IPostRepository postRepository ) 
+        public PostService(IUowProvider uowProvider) 
         {
-            _postRepository = postRepository;
+            _uowProvider = uowProvider;
         }             
 
         public IEnumerable<Post> GetAll()
-        {            
-            return _postRepository.Get();
-            
+        {
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<IPostRepository>();
+                return repository.GetAll();
+
+            }
+
         }
 
         public Post GetById(string id)
         {
-            var res = _postRepository.GetByID(id);
-            _postRepository.Save();
-            return res;
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<IPostRepository>();
+                return repository.Get(id, s => s.Include(c => c.Comment));
+
+            }           
         }
 
         public void Add(Post entity)
         {
-            _postRepository.Insert(entity);
-            _postRepository.Save();
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<IPostRepository>();
+                repository.Add(entity);
+                uow.SaveChanges();
+            }
         }
 
         public void Update(Post entity)
         {
-            _postRepository.Update(entity);
-            _postRepository.Save();
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<IPostRepository>();
+                repository.Update(entity);
+                uow.SaveChanges();
+            }
         }
 
         public void Remove(string id)
         {
-            _postRepository.Delete(id);
-            _postRepository.Save();
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<IPostRepository>();
+                repository.Remove(id);
+                uow.SaveChanges();
+            }
         }
        
     }

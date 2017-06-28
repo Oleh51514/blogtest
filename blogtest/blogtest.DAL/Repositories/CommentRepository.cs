@@ -8,18 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using blogtest.Entities.Entities;
 using blogtest.DAL.Interfaces;
+using storagecore.EFCore.Repositories;
+using Microsoft.Extensions.Logging;
+using storagecore.EFCore.Models;
 
 namespace blogtest.DAL.Repositories
 {
-    public class CommentRepository : BaseRepository<Comment>, ICommentRepository
+    public class CommentRepository : BaseRepository<BlogDbContext, Comment, string>, ICommentRepository
     {
-        public CommentRepository(
-            IServiceProvider serviceProvider,
-            BlogDbContext context
-        ) : base(context)
+        public CommentRepository(ILogger<LoggerDataAccess> logger)
+            : base(logger, null)
         {
-            //_entitiesContext = (IEntitiesContext)entitiesContext;
-            //_entitiesContext = (BlogDbContext)serviceProvider.GetService(typeof(IEntitiesContext));
-        }
+        }        
     }
 }

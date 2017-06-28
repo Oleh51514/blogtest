@@ -4,7 +4,7 @@ using System.Text;
 
 namespace blogtest.Entities.Entities
 {
-    public class Post : BaseEntity
+    public class Post: MyBaseEntites<string>
     {
         public string NamePost { get; set; }
         public string Description { get; set; }

@@ -3,6 +3,8 @@ using blogtest.BLL.Interfaces;
 using blogtest.DAL.Interfaces;
 using blogtest.DAL.Repositories;
 using blogtest.Entities.Entities;
+using Microsoft.EntityFrameworkCore;
+using storagecore.Abstractions.Uow;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,24 +13,37 @@ namespace blogtest.BLL.Services
 {
     public class CommentService :  ICommentService
     {
-        private readonly ICommentRepository _commentRepository;
 
-        public CommentService( ICommentRepository commentRepository ) 
+        private readonly IUowProvider _uowProvider;
+
+        public CommentService(IUowProvider uowProvider)
         {
-            _commentRepository = commentRepository;
+            _uowProvider = uowProvider;
         }
 
-        public void Create(Comment ent)
-        {        
-            _commentRepository.Insert(ent);
-            _commentRepository.Save();
+        public void Create(Comment entity, string postId)
+        {
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<ICommentRepository>();
+                var postRepository = uow.GetCustomRepository<IPostRepository>();
+                var post = postRepository.Get(postId);
+                entity.Post = post;
+                repository.Update(entity);
+                uow.SaveChanges();
+
+            }
         }
 
-        public IEnumerable<Comment> GetByPostId(string postId)
+        public IEnumerable<Comment> GetAllByPostId(string postId)
         {
-            var res = _commentRepository.Get(c => c.Post.Id == postId);
-            return res;
-            
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetCustomRepository<ICommentRepository>();
+                return repository.Query(s => s.Post.Id == postId);
+
+            }
+
         }
     }
 }
