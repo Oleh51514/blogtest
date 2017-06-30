@@ -7,6 +7,8 @@ using blogtest.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using blogtest.Entities.Entities;
 using blogtest.MvcApp.Models;
+using Kendo.Mvc.UI;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -51,6 +53,66 @@ namespace blogtest.MvcApp.Controllers
             var source = _postService.GetAll();
             return View(source);
         }
+        
+        public JsonResult GetAllPost()
+        {
+            var list = new List<Example>
+            {
+                new Example
+                {
+                    EmployeeID = 1,
+                    EmployeeName = "Name 1",
+                    Company = "Company 1",
+                    Designation = "designation 1"
+
+                },
+                new Example
+                {
+                    EmployeeID = 2,
+                    EmployeeName = "Name 2",
+                    Company = "Company 2",
+                    Designation = "designation 2"
+
+                },
+            };
+            //var source = _postService.GetAll();
+            return Json(list);
+        }
+
+
+
+        public ActionResult GetAllEmployee([DataSourceRequest]DataSourceRequest request)
+        {
+            var source = _postService.GetAll().Select(a => new Post
+            {
+                Id = a.Id,
+                NamePost = a.NamePost,
+                Description = a.Description,
+                CreationDate = a.CreationDate,
+                Comment = null
+            }).ToList();
+            return Json(source);
+            
+
+        }
+
+        [HttpGet]
+        public JsonResult GetAlll()
+        {
+
+            var source = _postService.GetAll().Select(a => new Post
+            {
+                Id = a.Id,
+                NamePost = a.NamePost,
+                Description = a.Description,
+                CreationDate = a.CreationDate,
+                Comment = null
+            }).ToList();
+
+
+            return this.Json(source);
+        }
+
 
         [Authorize]
         [HttpGet]
@@ -83,13 +145,22 @@ namespace blogtest.MvcApp.Controllers
 
             return RedirectToAction("Manage");
         }
-
+        [HttpGet]
         [Authorize]
-        public IActionResult Delete(string PostId)
+        public IActionResult Delete(string id)
         {
-            _postService.Remove(PostId);
+            _postService.Remove(id);
             return RedirectToAction("Manage");
         }
 
+
+    }
+    public class Example
+    {
+        public int EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+        public string Designation { get; set; }
+        public string Company { get; set; }
     }
 }
+

@@ -12,6 +12,7 @@
     <UserSecretsId>aspnet-blogtest.MvcApp-c5f321c3-6b94-4792-9bb0-633f9be0a6f9</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Kendo.Mvc" Version="2016.2.616" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
