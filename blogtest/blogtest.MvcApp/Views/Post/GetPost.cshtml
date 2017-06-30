@@ -2,100 +2,126 @@
 @{
     ViewData["Title"] = "Post Page";
 }
-<div class="container">
-
-    <div class="row">
-        @*<form action="/Comment/GetCommentList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
-                <input type="text" name="name" />
-                <input type="submit" value="Поиск" />
-            </form>
-            <div id="results">fgdfgdfgd</div>*@
-        <!-- Blog Post Content Column -->
-        <div class="col-lg-8">
-
-            <!-- Blog Post -->
-            <!-- Title -->
-            <h1>@Model.NamePost</h1>
-
-
-
-            <hr>
-
-            <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.CreationDate .</p>
-
-            <hr>
-
-            <!-- Preview Image -->
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-
-            <hr>
-
-            <!-- Post Content -->
-            <p class="lead">@Model.Description .</p>
-            
-
-            <hr>
-
-            <!-- Blog Comments -->
-            <!-- Comments Form -->
-            <div class="well">
-                <h4>Leave a Comment:</h4>
-
-
-                <form role="form" action="/Comment/GetCommentList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
-                    <div class="form-group">
-                        <input style="display:none" class="form-control" type="text" name="PostId" value=@Model.Id />
-                        <textarea class="form-control" name="TextComment" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-
-            </div>
-            <hr>
-
-            <!-- Posted Comments -->
-            <!-- Comment -->
-            <div id="results" class="media">
-                @if(Model.Comment != null){ 
-                    foreach (var item in Model.Comment)
-                    {
-                        <a class="pull-left" href="#">
-                            <img class="media-object" src="http://placehold.it/64x64" alt="">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                User: anonym
-                                <small>datetome: @item.CreationDate pm.</small>
-                            </h4>
-                            @item.TextComment
+@*<div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1>@Model.NamePost</h1>
+                <hr>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.CreationDate .</p>
+                <hr>
+                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                <hr>
+                <p class="lead">@Model.Description .</p>
+                <hr>
+                <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form" action="/Comment/GetCommentList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
+                        <div class="form-group">
+                            <input style="display:none" class="form-control" type="text" name="PostId" value=@Model.Id />
+                            <textarea class="form-control" name="TextComment" rows="3"></textarea>
                         </div>
-                        <br/>
-                        <br/>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <hr>
+
+
+                <div id="results" class="media">
+                    @if(Model.Comment != null){
+                        foreach (var item in Model.Comment)
+                        {
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    User: anonym
+                                    <small>datetome: @item.CreationDate pm.</small>
+                                </h4>
+                                @item.TextComment
+                            </div>
+                            <br/>
+                            <br/>
+                        }
                     }
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+
+    </div>*@
+
+<div class="row row-offcanvas row-offcanvas-right">
+
+    <div class="col-xs-12 col-sm-9">
+        <div id="content">
+            <div class="panel panel-default my-panel-body">
+                <div class="panel-body">
+                    <h1>
+                        @Model.NamePost
+                    </h1>
+                    <p class="addListData">
+                        <small>
+                            <span aria-hidden="true" class="glyphicon glyphicon-calendar" title="Дата публикации"></span>@Model.CreationDate
+                            <span aria-hidden="true" class="glyphicon glyphicon-comment" title="Количество комментариев"></span>&nbsp;&nbsp;0 &nbsp;&nbsp;&nbsp;
+                            <span aria-hidden="true" class="glyphicon glyphicon-eye-open" title="Просмотры публикации"></span>&nbsp;&nbsp;38 &nbsp;&nbsp;&nbsp;
+                        </small>
+                    </p>
+                </div>
+                <img title="" class="center-block img-responsive" style="width:100%;" src="//xn--80akiaokt3b4b.xn--d1acnqm.xn--j1amh/images/posts/main/253-274_magento_p1.jpg" alt="">    <div class="panel-body">
+                    <div class="post-content mrgn-top-10" style="overflow-wrap: break-word;">
+                        @Model.Description
+                    </div>
+
+
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6031791506024779" data-ad-slot="8045252041" data-ad-format="auto"></ins>
+                    <br><hr style="margin:0 -15px;">        <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <p class="addDetailData"><span aria-hidden="true" class="glyphicon glyphicon-tags" title="Теги"></span><a class="tagLink addListDataTag" style="
+    padding-left: 10px;
+">tags</a></p>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-top:-30px; padding-right: 15px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+          
+
+            <div id="commentForm"><div id="commentFormPreload" style="display: none; height: 353px; width: 848px;"></div></div><br>
+        </div><!-- content -->
+        <h4>Comments</h4>
+        <div class="well">
+            <h4>Leave a Comment:</h4>
+            <form role="form" action="/Comment/GetCommentList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
+                <div class="form-group">
+                    <input style="display:none" class="form-control" type="text" name="PostId" value=@Model.Id />
+                    <textarea class="form-control" name="TextComment" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div id="results" class="footer-blockquote media">
+            @if (Model.Comment != null)
+            {
+                foreach (var item in Model.Comment)
+                {
+                    <hr>
+                    <blockquote class="fontSize15">
+                        <p>@item.TextComment</p>
+                        <footer>User: anonym - @item.CreationDate pm.</footer>
+                    </blockquote>
                 }
-            </div>
-
-
-
+            }
+            
         </div>
-        <!-- Blog Sidebar Widgets Column -->
-        <div class="col-md-4">
-            <br />
-            <!-- Side Widget Well -->
-            <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-            </div>
-        </div>
-
-
-
     </div>
-    <!-- /.row -->
-
-    <br />
-    <br />
 
 </div>
-<!-- /.container -->
+

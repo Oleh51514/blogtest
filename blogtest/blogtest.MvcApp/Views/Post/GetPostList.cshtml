@@ -1,49 +1,111 @@
-@using blogtest.Entities.Entities
+п»ї@using blogtest.Entities.Entities
 @model blogtest.MvcApp.Models.IndexPostViewModel
 
-@*подключаем все tag-хелперы*@
+@*РїРѕРґРєР»СЋС‡Р°РµРј РІСЃРµ tag-С…РµР»РїРµСЂС‹*@
 @addTagHelper "*, blogtest.MvcApp"
 
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="container">
-    <div class="row">
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-            <h1 class="page-header">
-                This page contains a list of posts
-                <small></small>
-            </h1>
-            @foreach (Post u in Model.Posts)
-            {
-                <h2>
-                    <a asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id>@u.NamePost</a>
-                </h2>
-                <p>@*<span class="glyphicon glyphicon-time"></span> Posted on @u.CreateDate.Date .*@</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>@u.Description</p>
-                <a class="btn btn-primary" asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id>Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                <hr>
-            }
+@*<div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="page-header">
+                    This page contains a list of posts
+                    <small></small>
+                </h1>
+                @foreach (Post u in Model.Posts)
+                {
+                    <h2>
+                        <a asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id>@u.NamePost</a>
+                    </h2>
+                    <p></p>
+                    <hr>
+                    <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                    <hr>
+                    <p>@u.Description</p>
+                    <a class="btn btn-primary" asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id>Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <hr>
+                }
 
-            <!-- Pager -->
-            <ul class="nav pull-right navbar-nav">
-                <page-link page-model="Model.PageViewModel" page-action="GetPostList"></page-link>
+                <ul class="nav pull-right navbar-nav">
+                    <page-link page-model="Model.PageViewModel" page-action="GetPostList"></page-link>
 
-            </ul>
-        </div>
-        <!-- Blog Sidebar Widgets Column -->
-        <div class="col-md-4">
-            <br />
-            <!-- Side Widget Well -->
-            <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <br />
+                <div class="well">
+                    <h4>Side Widget Well</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                </div>
             </div>
         </div>
+    </div>*@
+
+<div class="container">
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+            <div id="content">
+                <div class="page-header">
+                    <h1><small>List of posts</small></h1>
+                </div>
+
+                <ul class="media-list">
+                    @foreach (Post u in Model.Posts)
+                    {
+                        <li class="media list-group">
+                            <div class="media-body-list list-group-item  panel panel-default my-panel-body" style="padding: 0;">
+                                <p>
+                                    <a class="link-h3" asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id><img title="Magento 1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ 6. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" class="center-block img-responsive" style="width: 100%;" src="//xn--80akiaokt3b4b.xn--d1acnqm.xn--j1amh/images/posts/main/253-274_magento_p1.jpg" alt="Default page"></a>
+                                </p>
+                                <div class="panel-body mrg-pdn-0">
+                                    <h3 class="media-heading mrgn-btn-10 pdn-top-20">
+                                        <a class="link-h3" asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id>@u.NamePost</a>
+                                    </h3>
+                                    <div class="overflow-hidden">
+                                        <div class="pull-left" style="margin-top: 10px;">
+                                            <p class="addListData">
+                                                <small>
+                                                    <span aria-hidden="true" class="glyphicon glyphicon-calendar"></span>@u.CreationDate
+                                                    <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> 0 &nbsp;&nbsp;&nbsp;
+                                                    <span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span> 37 &nbsp;&nbsp;&nbsp;
+                                                </small>
+                                            </p>
+                                        </div>
+                                        <a class="detail btn btn-default pull-right" asp-controller="Post" asp-action="GetPost" asp-route-postId=@u.Id>Read more ...</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+                <!-- Pager -->
+                <ul class="nav pull-right navbar-nav">
+                    <page-link page-model="Model.PageViewModel" page-action="GetPostList"></page-link>
+
+                </ul>
+            </div><!-- content -->
+        </div>
+        <div id="sidebar" class="col-xs-6 col-sm-3 sidebar-offcanvas">
+            <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="https://staticxx.facebook.com/connect/xd_arbiter/r/XBwzv5Yrm_1.js?version=42#channel=f1234bc52e42d3&amp;origin=https%3A%2F%2Fxn--d1acnqm.xn--j1amh" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+
+
+
+
+            <!-- coder right responsive -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6031791506024779" data-ad-slot="3822632044" data-ad-format="auto"></ins>
+
+            <div class="flickity-carousel flickity-enabled is-draggable" tabindex="0">
+
+
+
+                
+            </div>
+        </div><!--/.sidebar-offcanvas-->
     </div>
-    <!-- /.row -->
 </div>
