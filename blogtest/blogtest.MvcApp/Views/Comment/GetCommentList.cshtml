@@ -1,10 +1,10 @@
 @model IEnumerable<blogtest.Entities.Entities.Comment>
 
-    @foreach (var item in Model)
-    {
-        <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/64x64" alt="">
-        </a>
+@*@foreach (var item in Model)
+{
+    <a class="pull-left" href="#">
+        <img class="media-object" src="http://placehold.it/64x64" alt="">
+    </a>
         <div class="media-body">
             <h4 class="media-heading">
                 User: anonym
@@ -12,7 +12,22 @@
             </h4>
             @item.TextComment
         </div>
+        <br />
                 <br />
-                <br />
+}*@
+
+<div id="results" class="footer-blockquote media">
+    @foreach (var item in Model)
+    {
+        <hr>
+        <blockquote class="fontSize15">
+            <p>@item.TextComment</p>
+            <footer>User: anonym - @item.CreationDate pm.</footer>
+        </blockquote>
+
     }
+
+</div>
+
+
 
