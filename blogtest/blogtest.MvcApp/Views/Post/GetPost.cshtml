@@ -2,58 +2,7 @@
 @{
     ViewData["Title"] = "Post Page";
 }
-@*<div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <h1>@Model.NamePost</h1>
-                <hr>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.CreationDate .</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p class="lead">@Model.Description .</p>
-                <hr>
-                <div class="well">
-                    <h4>Leave a Comment:</h4>
-                    <form role="form" action="/Comment/GetCommentList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
-                        <div class="form-group">
-                            <input style="display:none" class="form-control" type="text" name="PostId" value=@Model.Id />
-                            <textarea class="form-control" name="TextComment" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-                <hr>
-
-
-                <div id="results" class="media">
-                    @if(Model.Comment != null){
-                        foreach (var item in Model.Comment)
-                        {
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    User: anonym
-                                    <small>datetome: @item.CreationDate pm.</small>
-                                </h4>
-                                @item.TextComment
-                            </div>
-                            <br/>
-                            <br/>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-        <br />
-        <br />
-
-    </div>*@
-
 <div class="row row-offcanvas row-offcanvas-right">
-
     <div class="col-xs-12 col-sm-9">
         <div id="content">
             <div class="panel panel-default my-panel-body">
@@ -122,6 +71,7 @@
             
         </div>
     </div>
+    
 
 </div>
 

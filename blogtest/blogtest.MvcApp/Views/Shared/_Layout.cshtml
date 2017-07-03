@@ -62,39 +62,46 @@
             </div>
         </div>
     </div>
-    <@*div class="navbar navbar-default navbar-fixed-top navbar-md">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">blogtest.MvcApp</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Post" asp-action="GetPostList">Blog</a></li>
-
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li><a asp-area="" asp-controller="Post" asp-action="Manage">Manage</a></li>
-                    }
-
-
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </div>*@
+ 
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; 2017 - blogtest.MvcApp</p>
         </footer>
+    </div>
+    <div class="footer ">
+        <div class="container top-footer hidden-xs hidden-sm">
+            <div class="col-md-3">
+                <p class="footer-header-block">
+                    exemple| work
+                </p>
+                <p>Entity Framework and we are going to use Fluent NHibernate/NHibernate combo to build the data-access system.   <text></text></p>
+                <p>We are going to create the necessary model classes, data access components, controllers and views <text></text></p>
+            </div>
+            <div class="col-md-2">
+                <p class="footer-header-block">Menu</p>
+                <ul class="footer-menu" id="yw3">
+                    <li class="active"><a href="/">Main page</a></li>
+                    <li><a href="/#">List</a></li>
+                    <li><a href="/#">Tags</a></li>
+                </ul>
+                <p class="footer-header-block">Feedback</p>
+                
+            </div>
+            <div class="col-md-4">
+                </table><table><tbody><tr><td><img class="img-circle" style="width: 45px; height: 45px; margin-right:10px;" src="/images/user/random/41.jpg" alt=""></td><td><i><a href="/записи/переход_к_коментарию/1005" class="footer-comments-links">cherry • 27 июня 2017&nbsp;г., 12:01</a></i><br><p><small>Можно ли здесь использовать Recyclerview и его адаптер? Если да, можете ли написать код?&nbsp;</small></p></td></tr></tbody></table><table><tbody><tr><td><img class="img-circle" style="width: 45px; height: 45px; margin-right:10px;" src="/images/user/96.jpg" alt=""></td><td><i><a href="/записи/переход_к_коментарию/1004" class="footer-comments-links">Goodcat • 26 июня 2017&nbsp;г., 16:52</a></i><br><p><small>Спасибо</small></p></td></tr></tbody></table>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
+        <div class="container add-footer">
+            <div class="container">
+                <p class="text-muted pull-left">Copyright © 2014 - 2017 by <a href="/">кодер.укр</a>. All Rights Reserved.</p>
+                <p class="text-muted pull-right" style="padding-right: 15px;"><a href="http://devreadwrite.com">In English</a></p>
+            </div>
+        </div>
     </div>
 
     <environment names="Development">

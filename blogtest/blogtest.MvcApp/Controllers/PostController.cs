@@ -53,53 +53,11 @@ namespace blogtest.MvcApp.Controllers
             var source = _postService.GetAll();
             return View(source);
         }
-        
-        public JsonResult GetAllPost()
-        {
-            var list = new List<Example>
-            {
-                new Example
-                {
-                    EmployeeID = 1,
-                    EmployeeName = "Name 1",
-                    Company = "Company 1",
-                    Designation = "designation 1"
-
-                },
-                new Example
-                {
-                    EmployeeID = 2,
-                    EmployeeName = "Name 2",
-                    Company = "Company 2",
-                    Designation = "designation 2"
-
-                },
-            };
-            //var source = _postService.GetAll();
-            return Json(list);
-        }
-
-
-
-        public ActionResult GetAllEmployee([DataSourceRequest]DataSourceRequest request)
-        {
-            var source = _postService.GetAll().Select(a => new Post
-            {
-                Id = a.Id,
-                NamePost = a.NamePost,
-                Description = a.Description,
-                CreationDate = a.CreationDate,
-                Comment = null
-            }).ToList();
-            return Json(source);
-            
-
-        }
+              
 
         [HttpGet]
-        public JsonResult GetAlll()
+        public JsonResult GetAll()
         {
-
             var source = _postService.GetAll().Select(a => new Post
             {
                 Id = a.Id,
